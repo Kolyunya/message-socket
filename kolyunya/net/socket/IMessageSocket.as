@@ -14,6 +14,27 @@ package kolyunya.net.socket
 	{
 		
 		/**
+		 * Attempts to connect to the specified host and port
+		 * This method should be used instead on "connect" in order
+		 * the reconnect to work properly
+		 * @param	host	A host to connect to
+		 * @param	port	A port to connect to
+		 */
+		function connectTo(host:String, port:uint):void;
+		
+		/**
+		 * Returns a reconnect timeout in milliseconds
+		 * @return A reconnect timeout in milliseconds
+		 */
+		function getReconnectTimeout():uint;
+		
+		/**
+		 * Sets a reconnect timeout
+		 * @param	timeout	A reconnect timeout in milliseconds
+		 */
+		function setReconnectTimeout(reconnectTimeout:uint):void;
+		
+		/**
 		 * Returns current socket stream splitter
 		 * @return Current socket stream splitter
 		 */
