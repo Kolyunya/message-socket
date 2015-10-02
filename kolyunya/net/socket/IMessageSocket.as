@@ -3,7 +3,8 @@ package kolyunya.net.socket
 	
 	import flash.events.IEventDispatcher;
 	import flash.utils.ByteArray;
-	import kolyunya.net.socket.splitter.ISplitter;
+	import kolyunya.net.socket.message.IMessageFactory;
+	import kolyunya.net.socket.stream.IStreamSplitter;
 	
 	/**
 	 * A socket which abstracts away from raw data streams
@@ -23,6 +24,30 @@ package kolyunya.net.socket
 		function connectTo(host:String, port:uint):void;
 		
 		/**
+		 * Returns current socket stream splitter
+		 * @return Current socket stream splitter
+		 */
+		function getSplitter():IStreamSplitter;
+		
+		/**
+		 * Specifies socket stream splitter
+		 * @param	ISplitter New stream splitter
+		 */
+		function setSplitter(splitter:IStreamSplitter):void;
+		
+		/**
+		 * Returns current message factory used by socket
+		 * @return Current message factory used by socket
+		 */
+		function getMessageFactory():IMessageFactory;
+		
+		/**
+		 * Sets a message factory the socket should use
+		 * @param	factory A message factory the socket should use
+		 */
+		function setMessageFactory(messageFactory:IMessageFactory):void;
+		
+		/**
 		 * Returns a reconnect timeout in milliseconds
 		 * @return A reconnect timeout in milliseconds
 		 */
@@ -35,34 +60,28 @@ package kolyunya.net.socket
 		function setReconnectTimeout(reconnectTimeout:uint):void;
 		
 		/**
-		 * Returns current socket stream splitter
-		 * @return Current socket stream splitter
-		 */
-		function getSplitter():ISplitter;
-		
-		/**
-		 * Specifies socket stream splitter
-		 * @param	ISplitter New stream splitter
-		 */
-		function setSplitter(splitter:ISplitter):void;
-		
-		/**
 		 * Returns a number of messages available for read
 		 * @return A number of messages available for read
 		 */
 		function getMessagesCount():uint;
 		
 		/**
+		 * Tells if the socket has input messages available
+		 * @return A boolean indicating if the socket has input messages available
+		 */
+		function hasInputMessages():Boolean;
+		
+		/**
 		 * Reads a message from the socket
 		 * @return	A message read from the socket
 		 */
-		function readMessage():ByteArray;
+		function readMessage():Object;
 		
 		/**
 		 * Writes the message to the socket
-		 * @param	message A message to be written to the socket
+		 * @param	messageData A message to be written to the socket
 		 */
-		function writeMessage(message:ByteArray):void;
+		function writeMessage(messageData:Object):void;
 		
 		/**
 		 * Flushes all accumulated messages in the socket's output buffer
